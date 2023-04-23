@@ -12,18 +12,20 @@
     "type": "git",
     "url": "git+https://github.com/petrmasol04/express-mesto-gha.git"
   },
-  "author": "",
+  "author": "Petr",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/petrmasol04/express-mesto-gha/issues"
   },
   "homepage": "https://github.com/petrmasol04/express-mesto-gha#readme",
   "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.4"
+  },
+  "devDependencies": {
     "eslint": "^8.38.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
-    "express": "^4.18.2",
-    "mongoose": "^7.0.4",
     "nodemon": "^2.0.22"
   }
 }
