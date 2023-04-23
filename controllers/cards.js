@@ -40,7 +40,12 @@ const likeCard = (req, res) => {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   ).populate(['owner', 'likes'])
-    .then((card) => res.send(card))
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка не обнаружена!');
+      }
+      res.send(card);
+    })
     .catch((error) => {
       handleError(error, res);
     });
@@ -52,7 +57,12 @@ const dislikeCard = (req, res) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   ).populate(['owner', 'likes'])
-    .then((card) => res.send(card))
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка не обнаружена!');
+      }
+      res.send(card);
+    })
     .catch((error) => {
       handleError(error, res);
     });
