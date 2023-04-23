@@ -41,7 +41,9 @@ const updateUser = (req, res) => {
     runValidators: true, // данные будут валидированы перед изменением
   })
     .then((user) => res.send(user))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+    .catch((error) => {
+      handleError(error, res);
+    });
 };
 
 const updateAvatar = (req, res) => {
@@ -52,7 +54,9 @@ const updateAvatar = (req, res) => {
     runValidators: true, // данные будут валидированы перед изменением
   })
     .then((user) => res.send(user))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+    .catch((error) => {
+      handleError(error, res);
+    });
 };
 
 module.exports = {
