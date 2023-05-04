@@ -4,6 +4,20 @@ const User = require('../models/user');
 const handleError = require('../utils/handle-error');
 const NotFoundError = require('../utils/error/not-found');
 
+const getMe = (req, res) => {
+  const { _id } = req.user;
+  User.findById(_id)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Пользователь не найден!');
+      }
+      res.send(user);
+    })
+    .catch((error) => {
+      handleError(error, res);
+    });
+};
+
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.send(users))
@@ -79,6 +93,7 @@ const login = (req, res) => {
 };
 
 module.exports = {
+  getMe,
   getUsers,
   createUsers,
   getUserById,
