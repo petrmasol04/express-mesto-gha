@@ -8,7 +8,6 @@ const { auth } = require('../middlewares/auth');
 const routerUsers = require('./users');
 const routerCards = require('./cards');
 
-console.log(auth);
 router.post('/signin', login);
 router.post('/signup', createUsers);
 router.use('/users', auth, routerUsers);

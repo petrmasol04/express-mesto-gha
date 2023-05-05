@@ -1,10 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const handleError = require('../utils/handle-error');
 const NotFoundError = require('../utils/error/not-found');
 
-const getMe = (req, res) => {
+const getMe = (req, res, next) => {
   const { _id } = req.user;
   User.findById(_id)
     .then((user) => {
@@ -13,20 +12,16 @@ const getMe = (req, res) => {
       }
       res.send(user);
     })
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
-const getUsers = (req, res) => {
+const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
-const createUsers = async (req, res) => {
+const createUsers = async (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -35,12 +30,10 @@ const createUsers = async (req, res) => {
     name, about, avatar, email, password: hash,
   })
     .then((user) => res.status(201).send(user))
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
-const getUserById = (req, res) => {
+const getUserById = (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
     .then((user) => {
@@ -49,12 +42,10 @@ const getUserById = (req, res) => {
       }
       res.send(user);
     })
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
-const updateUser = (req, res) => {
+const updateUser = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, about }, {
@@ -62,12 +53,10 @@ const updateUser = (req, res) => {
     runValidators: true, // данные будут валидированы перед изменением
   })
     .then((user) => res.send(user))
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
-const updateAvatar = (req, res) => {
+const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { avatar }, {
@@ -75,21 +64,17 @@ const updateAvatar = (req, res) => {
     runValidators: true, // данные будут валидированы перед изменением
   })
     .then((user) => res.send(user))
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
-const login = (req, res) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
       res.send({ token });
     })
-    .catch((error) => {
-      handleError(error, res);
-    });
+    .catch(next);
 };
 
 module.exports = {
