@@ -8,7 +8,7 @@ const validateCardData = celebrate({
   }),
 });
 
-const validateIdCardData = celebrate({
+const validateCardId = celebrate({
   params: Joi.object().keys({
     id: Joi.string().hex().length(24),
   }),
@@ -16,5 +16,5 @@ const validateIdCardData = celebrate({
 
 module.exports = {
   validateCardData,
-  validateIdCardData,
+  validateCardId,
 };
