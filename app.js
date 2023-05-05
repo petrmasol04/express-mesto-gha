@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { errors } = require('celebrate');
 const router = require('./routes');
 const handleError = require('./utils/handle-error');
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
-
+app.use(errors());
 app.use(handleError);
 
 app.listen(PORT, () => {
