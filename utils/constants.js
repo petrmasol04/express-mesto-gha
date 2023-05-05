@@ -9,6 +9,8 @@ const {
   HTTP_STATUS_INTERNAL_SERVER_ERROR: INTERNAL_SERVER_ERROR_500,
 } = http2.constants;
 
+const patternLink = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/;
+
 module.exports = {
   BAD_REQUEST_400,
   UNAUTHORIZED_401,
@@ -16,4 +18,5 @@ module.exports = {
   NOT_FOUND_404,
   CONFLICT_409,
   INTERNAL_SERVER_ERROR_500,
+  patternLink,
 };
