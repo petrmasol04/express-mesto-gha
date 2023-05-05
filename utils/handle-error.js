@@ -4,6 +4,7 @@ const {
   CONFLICT_409,
   INTERNAL_SERVER_ERROR_500,
 } = require('./constants');
+const ForbiddenError = require('./error/forbidden');
 const NotFoundError = require('./error/not-found');
 const UnauthorizedError = require('./error/unauthorized');
 
@@ -13,6 +14,10 @@ function handleError(error, req, res, next) {
     return;
   }
   if (error instanceof UnauthorizedError) {
+    res.status(error.statusCode).send({ message: error.message });
+    return;
+  }
+  if (error instanceof ForbiddenError) {
     res.status(error.statusCode).send({ message: error.message });
     return;
   }
