@@ -13,15 +13,9 @@ function handleError(error, req, res, next) {
     res.status(BAD_REQUEST_400).send({ message: error.message });
     return;
   }
-  if (error instanceof UnauthorizedError) {
-    res.status(error.statusCode).send({ message: error.message });
-    return;
-  }
-  if (error instanceof ForbiddenError) {
-    res.status(error.statusCode).send({ message: error.message });
-    return;
-  }
-  if (error instanceof NotFoundError) {
+  if (error instanceof UnauthorizedError
+    || error instanceof ForbiddenError
+    || error instanceof NotFoundError) {
     res.status(error.statusCode).send({ message: error.message });
     return;
   }
