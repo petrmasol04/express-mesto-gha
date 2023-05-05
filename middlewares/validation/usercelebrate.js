@@ -12,8 +12,8 @@ const validateRegisterData = celebrate({
 });
 
 const validateIdData = celebrate({
-  body: Joi.object().keys({
-    id: Joi.string(),
+  params: Joi.object().keys({
+    id: Joi.string().hex().length(24),
   }),
 });
 
